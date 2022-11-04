@@ -168,14 +168,17 @@ function lib.progressCircle(data)
     end
 end
 
-function lib.cancelProgress()
-    if not progress then
-        error('No progress bar is active')
-    elseif not progress.canCancel then
-        error('Progress bar cannot be cancelled')
+function lib.cancelProgress(forced)
+    if forced then
+        progress = false
+    else
+        if not progress then
+            error('No progress bar is active')
+        elseif not progress.canCancel then
+            error('Progress bar cannot be cancelled')
+        end
+        progress = false
     end
-
-    progress = false
 end
 
 ---@return boolean
